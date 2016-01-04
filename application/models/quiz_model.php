@@ -58,7 +58,6 @@ class Quiz_Model extends CI_Model
         $result = array();
         for($i=0;$i<count($questions);$i++){
             $this->db->where('question_id', $questions[$i]["question_id"]);
-
             $this->db->where('status', 1);
             $query =  $this->db->get('answer');
             $correct_answer = array_values($query->result_array());
