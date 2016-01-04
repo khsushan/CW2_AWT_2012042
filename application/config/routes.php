@@ -55,3 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['quiz/questions/get'] = 'Quiz_Controller/getQuestionFromCategory';
 $route['quiz/questions/next'] = 'Quiz_Controller/getNextQuestions';
+
+$route['user/signup'] = 'User_Controller/signUp';
+
+$route['user/login'] = 'Login_Controller/login';
