@@ -27,6 +27,50 @@ class Quiz_Controller extends CI_Controller
         $data["category"] =$this->category_model->getAllCategories();
         $this->load->view('question_view', $data);
     }
+     /**
+     * add question according to the given details.
+    **/
+    public  function addQuestion(){
+        $this->load->model('quiz_model');
+        $quiz_model =  new Quiz_Model();
+        $question =  array();
+        $question["question_value"] = "test";
+        $question["category_id"] = 2;
+        $answers =  array();
+        $answers[0] = array("answer_value"=>"test1","status"=>1);
+        $answers[1] = array("answer_value"=>"test2","status"=>0);
+        $answers[2] = array("answer_value"=>"test3","status"=>0);
+        $answers[3] = array("answer_value"=>"test4","status"=>0);
+        $question["answers"] = $answers;
+        $quiz_model->addQuestion($question);
+    }
+     /**
+     *update question from according to the given details
+    **/
+    public function updateQuestion(){
+        $this->load->model('quiz_model');
+        $quiz_model =  new Quiz_Model();
+        $question =  array();
+        $question["question_id"] = 38;
+        $question["question_value"] = "test";
+        $question["category_id"] = 2;
+        $answers =  array();
+        $answers[0] = array("answer_id"=>150,"answer_value"=>"test11","status"=>0);
+        $answers[1] = array("answer_id"=>151,"answer_value"=>"test22","status"=>1);
+        $answers[2] = array("answer_id"=>152,"answer_value"=>"test33","status"=>0);
+        $answers[3] = array("answer_id"=>153,"answer_value"=>"test44","status"=>0);
+        $question["answers"] = $answers;
+        $quiz_model->updateQuestion($question);
+    }
+    
+    /**
+     * delete questions from according to the given details
+    **/
+    public function deleteQuestion(){
+        $this->load->model('quiz_model');
+        $quiz_model =  new Quiz_Model();
+        $quiz_model->deleteQuestion(38);
+    }
 
     /**
      * retrive questions from according to the given category
