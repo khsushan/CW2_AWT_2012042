@@ -84,6 +84,15 @@ class Quiz_Controller extends CI_Controller
         $this->session->set_userdata('question_count', 0);
         $this->getNextQuestions(true);
     }
+    
+     /**
+     * retrive attemps according to the given user
+    **/
+    public function getAttemps(){
+        $this->load->model('Attemp_Model');
+        $attempModel = new Attemp_Model();
+        $attempModel->getAttempByUserID($user_id);
+    }
 
     /**
      * @param bool $isFirstQuestion
@@ -95,6 +104,9 @@ class Quiz_Controller extends CI_Controller
         //inizializing models
         $this->load->model('quiz_model');
         $this->load->model('answer_model');
+        $this->load->model('Attemp_Model');
+        $attempModel = new Attemp_Model();
+        
         //$this->load->model('feedback_model');
         $data = array();
         if ($isFirstQuestion) {
@@ -118,6 +130,7 @@ class Quiz_Controller extends CI_Controller
                     $questions = $this->session->userdata('questions');
                     $answers = $this->session->userdata("answers");
                     $results = $this->quiz_model->calculateScore($questions, $answers);
+                    $attempModel->addAttemp($user_id, $results);
                     $this->clearSession();
                     $data["results"] = $results;
                     $this->load->view('question_view', $data);
