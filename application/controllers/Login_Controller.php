@@ -28,15 +28,16 @@ class Login_Controller extends CI_Controller {
     function login() {
         $this->load->model('User_Model');
         $user_model = new User_Model();
-        $email = "khsushan@gmail.com";
-        $password = "ushan"; 
-//        $email = $this->input->post("email");
-//        $password = $this->input->post("password");
+        $json_data = json_decode(file_get_contents('php://input'));
+        $email = $json_data->{'email'};
+        $password = $json_data->{'password'};
         $user_details = $user_model->getUserDetials($email, $password);
         if($user_details != NULL){
-            echo 'Login Succses';
+            $user_details[0]["error"] = false;
+            echo json_encode($user_details[0]);
         }  else {
-            echo 'Login failed';
+            $data = array("error"=>true,"message"=>"invalid username or password");
+            echo json_encode($data);
         }
     }
 
