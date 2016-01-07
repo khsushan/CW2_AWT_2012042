@@ -311,7 +311,7 @@
 <script src="<?php echo base_url(); ?>assets/js/backbone/collection.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/backbone/views.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/backbone/model.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/backbone/router.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/backbone/adminrouter.js"></script>
 
 
 </body>
