@@ -11,26 +11,42 @@
  *
  * @author Ushan
  */
-class User_Controller extends CI_Controller {
-    //put your code here
-    
-    /**
-     * This method will handle the signup process
-     */
-    function signUp(){
+class User_Controller extends CI_Controller
+{
+
+    public function index()
+    {
+        $json_data = json_decode(file_get_contents('php://input'));
+        $data = array(
+            'name' => $json_data->{'username'},
+            'email' => $json_data->{'email'},
+            'password' => $json_data->{'password'},
+            'privilages' => 2
+        );
         $this->load->model('User_Model');
         $user_model = new User_Model();
-//        $email = "khsushan";
-//        $password = "ushan";
-//        $name = "Ushan";
-//        $privilages = 1; 
-        $email = $this->input->post("email");
-        $password = $this->input->post("password");
-        $name = $this->input->post("name");
-        //If privilage is equal to 1 that user has admin privilages
-        //Normal user has privilage value as 0
-        $privilage = $this->input->post("privilage");;
-        $isAdded = $user_model->addNewUser($email, $password, $name, $privilage);
-        echo $isAdded;
+        $isAdded = $user_model->addNewUser($data);
+        echo json_encode(array("status" => $isAdded));
+
+    }
+
+
+    /**
+     * This method will handle the signup process
+     *
+     */
+    function signUp()
+    {
+        $json_data = json_decode(file_get_contents('php://input'));
+        $data = array(
+            'name' => $json_data->{'username'},
+            'email' => $json_data->{'email'},
+            'password' => $json_data->{'password'},
+            'privilages' => 2
+        );
+        $this->load->model('User_Model');
+        $user_model = new User_Model();
+        $isAdded = $user_model->addNewUser($data);
+        echo json_encode(array("status" => $isAdded));
     }
 }
