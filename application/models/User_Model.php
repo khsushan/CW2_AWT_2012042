@@ -30,19 +30,13 @@ class User_Model extends CI_Model {
      *         - name
      * */
 
-    public function addNewUser($email, $password, $name,$privilage) {
+    public function addNewUser($data) {
         //Check whether email is already available in database
-        $this->db->where('email', $email);
+        $this->db->where('email', $data["email"]);
         $query = $this->db->get('user');
         $login_details = array_values($query->result_array());
         if (count($login_details) == 0) {
-            $hashed_password = crypt($password); // let the salt be automatically generated
-            $data = array(
-                'email' => $email,
-                'name' => $hashed_password,
-                'password' => $password,
-                'privilages' => $privilage    
-            );
+            $data["password"] = $hashed_password = crypt($data["password"]); // let the salt be automatically generated
             $this->db->insert('user', $data);
             return TRUE;
         }
@@ -61,13 +55,10 @@ class User_Model extends CI_Model {
      * */
 
     public function getUserDetials($email, $password) {
-        $hashed_password = crypt($password); // let the salt be automatically generated
         $this->db->where('email', $email);
-        //$this->db->where('password', $hashed_password);
         $query = $this->db->get('user');
-        $user_details = array_values($query->result_array());
-        if(hash_equals($hashed_password, crypt($user_details[0]["password"]
-                , $hashed_password))){
+        $user_details = $query->result_array();
+        if(crypt($password,$user_details[0]["password"]) == $user_details[0]["password"]){
            return $user_details; 
         }  else {
             return NULL;
