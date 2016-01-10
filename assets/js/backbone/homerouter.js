@@ -14,7 +14,7 @@ var Router = Backbone.Router.extend({
 var router = new Router;
 router.on('route:signup', function () {
     var signUpView = new SignUpView( {model: new User()});
-    $("#main").innerHTML = "";
+    $("#main").empty();
     $("#main").append(signUpView.render().el);
 });
 router.on('route:home', function () {
@@ -23,7 +23,7 @@ router.on('route:home', function () {
 });
 router.on('route:login', function () {
     var loginView = new LoginView( {model: new Login()});
-    $("#main").innerHTML = "";
+    $("#main").empty();
     $("#main").append(loginView.render().el);
 });
 Backbone.history.start();
