@@ -51,21 +51,19 @@ class Quiz_Model extends CI_Model {
      *         - This is include the question details with answer
      * */
 
-    public function updateQuestion($question) {
-        $data = array(
-            'question_value' => $question["question_value"],
-            'category_id' => $question["category_id"]
-        );
-        $this->db->where('question_id', $question["question_id"]);
+    public function updateQuestion($data,$question_id) {
+        $this->db->where('question_id',$question_id);
         $this->db->update('question', $data);
-        for ($i = 0; $i < count($question["answers"]); $i++) {
-            $data = array(
-                'answer_value' => $question["answers"][$i]["answer_value"],
-                'status' => $question["answers"][$i]["status"]
-            );
-            $this->db->where('answer_id', $question["answers"][$i]["answer_id"]);
-            $this->db->update('answer', $data);
-        }
+    }
+
+    /*
+     * This method will update an answer in the database
+     * @param answer array
+     *         - This is include the question details with answer
+     * */
+    public function updateAnswer($data,$answer_id){
+        $this->db->where('answer_id', $answer_id);
+        $this->db->update('answer', $data);
     }
 
     /*
@@ -89,6 +87,17 @@ class Quiz_Model extends CI_Model {
         $query = $this->db->query("SELECT question_id FROM question WHERE category_id= "
                 . "(SELECT categoryid FROM category WHERE category_name='$category')"
                 . "ORDER BY RAND() LIMIT 10");
+        $array = array_values($query->result_array());
+        return $array;
+    }
+
+    /*
+    * This method will return the question according to the given category
+    * @param category  String
+    *         - This is include the category of question type
+    * */
+    public function getQuestionsFROMID($categoryid) {
+        $query = $this->db->query("SELECT * FROM question WHERE category_id=".$categoryid);
         $array = array_values($query->result_array());
         return $array;
     }
