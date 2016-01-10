@@ -18,7 +18,7 @@ class category_model extends CI_Model
      * This method will return all the categories available in database
      */
     function  getAllCategories(){
-        $query = $this->db->query("SELECT category_name FROM category");
+        $query = $this->db->query("SELECT * FROM category");
         return $query->result_array();
     }
 
