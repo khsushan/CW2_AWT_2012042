@@ -94,24 +94,21 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<header id="header"></header>
-<div id="main">
+<header id="header">
+    <div class="header-content">
+        <div class="header-content-inner" id="main">
+        </div>
+    </div>
 
-</div>
+</header>
 
 
 <!-home content template ->
 <script type="text/template" id="home-template">
     <!-- -->
-    <div class="header-content">
-        <div class="header-content-inner">
-            <h1>Your Favorite Place of Fun Quizzes</h1>
-            <hr>
-            <p>Start doing Quiz Time quizzes to make your leisure time enjoyable!</p>
-            <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
-        </div>
-    </div>
-    <!--</header>-->
+    <h1>Your Favorite Place of Fun Quizzes</h1>
+    <hr>
+    <p>Start doing Quiz Time quizzes to make your leisure time enjoyable!</p>
 </script>
 <!- end home content template ->
 <!-about template ->
@@ -133,7 +130,7 @@
 
 <!-sigin template ->
 <script type="text/template" id="signin-template">
-    <div id="signin" class="bg-dark">
+    <div id="signin">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -174,29 +171,33 @@
 
                 <div class="form-group">
                     <label for="username" class="col-lg-2 control-label">Username</label>
+
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" id="username" name="username" />
+                        <input type="text" class="form-control" id="username" name="username"/>
                         <span class="help-block hidden"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="email" class="col-lg-2 control-label">Email</label>
+
                     <div class="col-lg-10">
-                        <input type="email" class="form-control" id="email" name="email" />
+                        <input type="email" class="form-control" id="email" name="email"/>
                         <span class="help-block hidden"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password" class="col-lg-2 control-label">Password</label>
+
                     <div class="col-lg-10">
-                        <input type="password" class="form-control" id="password" name="password" />
+                        <input type="password" class="form-control" id="password" name="password"/>
                         <span class="help-block hidden"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="repeatPassword" class="col-lg-2 control-label">Repeat Password</label>
+
                     <div class="col-lg-10">
-                        <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" />
+                        <input type="password" class="form-control" id="repeatPassword" name="repeatPassword"/>
                         <span class="help-block hidden"></span>
                     </div>
                 </div>
@@ -223,38 +224,40 @@
                 </div>
             </div>
         </div>
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-lg-3">-->
-<!---->
-<!--                </div>-->
-<!--                <div class="col-lg-6 text-center">-->
-<!--                    <div class="col-lg-6">-->
-<!--                        User Name: <br><br>-->
-<!--                        Password:-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-6">-->
-<!--                        <input type="text" maxlength="100"/><br><br>-->
-<!--                        <input type="password"/><br><br>-->
-<!--                        <a href="adminView.html" class="btn btn-primary btn-xl page-scroll">Login</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-3">-->
-<!---->
-<!--                </div>-->
-<!--            </div>-->
+        <!--        <div class="container">-->
+        <!--            <div class="row">-->
+        <!--                <div class="col-lg-3">-->
+        <!---->
+        <!--                </div>-->
+        <!--                <div class="col-lg-6 text-center">-->
+        <!--                    <div class="col-lg-6">-->
+        <!--                        User Name: <br><br>-->
+        <!--                        Password:-->
+        <!--                    </div>-->
+        <!--                    <div class="col-lg-6">-->
+        <!--                        <input type="text" maxlength="100"/><br><br>-->
+        <!--                        <input type="password"/><br><br>-->
+        <!--                        <a href="adminView.html" class="btn btn-primary btn-xl page-scroll">Login</a>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-lg-3">-->
+        <!---->
+        <!--                </div>-->
+        <!--            </div>-->
         <form class="form-horizontal" id="loginform" role="form">
             <div class="form-group">
                 <label for="email" class="col-lg-2 control-label">Email</label>
+
                 <div class="col-lg-10">
-                    <input type="email" class="form-control" id="email" name="email" />
+                    <input type="email" class="form-control" id="email" name="email"/>
                     <span class="help-block hidden"></span>
                 </div>
             </div>
             <div class="form-group">
                 <label for="password" class="col-lg-2 control-label">Password</label>
+
                 <div class="col-lg-10">
-                    <input type="password" class="form-control" id="password" name="password" />
+                    <input type="password" class="form-control" id="password" name="password"/>
                     <span class="help-block hidden"></span>
                 </div>
             </div>
@@ -264,7 +267,7 @@
                 </div>
             </div>
         </form>
-        </div>
+    </div>
     </div>
 </script>
 <!-end login template ->
