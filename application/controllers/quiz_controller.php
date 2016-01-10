@@ -23,10 +23,27 @@ class Quiz_Controller extends CI_Controller
     public function index()
     {
         $this->load->model('category_model');
+        $categoryModel = new category_model();
         $data = array();
-        $data["category"] =$this->category_model->getAllCategories();
-        $this->load->view('question_view', $data);
+        $data["category"] =$categoryModel->getAllCategories();
+        $this->load->view('home', $data);
     }
+
+    /**
+     * get all categories
+     **/
+    public  function getAllCategories(){
+        $method = strtolower($this->input->server('REQUEST_METHOD'));
+        if($method == "get"){
+            $this->load->model('category_model');
+            $categoryModel = new category_model();
+            $categories =$categoryModel->getAllCategories();
+            echo json_encode($categories);
+        }else{
+            echo json_encode(array("error"=>"invalid resource required"));
+        }
+    }
+
      /**
      * add question according to the given details.
     **/
@@ -48,20 +65,29 @@ class Quiz_Controller extends CI_Controller
      *update question from according to the given details
     **/
     public function updateQuestion(){
+        $json_data = json_decode(file_get_contents('php://input'));
         $this->load->model('quiz_model');
         $quiz_model =  new Quiz_Model();
-        $question =  array();
-        $question["question_id"] = 38;
-        $question["question_value"] = "test";
-        $question["category_id"] = 2;
-        $answers =  array();
-        $answers[0] = array("answer_id"=>150,"answer_value"=>"test11","status"=>0);
-        $answers[1] = array("answer_id"=>151,"answer_value"=>"test22","status"=>1);
-        $answers[2] = array("answer_id"=>152,"answer_value"=>"test33","status"=>0);
-        $answers[3] = array("answer_id"=>153,"answer_value"=>"test44","status"=>0);
-        $question["answers"] = $answers;
-        $quiz_model->updateQuestion($question);
+        $data = array(
+            'question_value' => $json_data->{'question_value'}
+        );
+         $quiz_model->updateQuestion($data,$json_data->{'question_id'});
     }
+
+    /**
+     *update answer according to the given details
+     **/
+    public function updateAnswer(){
+        $json_data = json_decode(file_get_contents('php://input'));
+        $this->load->model('quiz_model');
+        $quiz_model =  new Quiz_Model();
+        $data = array(
+            'answer_value' => $json_data->{'answer_value'},
+            'status' => $json_data->{'answer_status'}
+        );
+        $quiz_model->updateAnswer($data,$json_data->{'answer_id'});
+    }
+
     
     /**
      * delete questions from according to the given details
@@ -84,6 +110,32 @@ class Quiz_Controller extends CI_Controller
         $this->session->set_userdata('question_count', 0);
         $this->getNextQuestions(true);
     }
+
+    /**
+     *
+     */
+     public  function  getQuestionFromCategoryID(){
+         //$category = $this->input->post("category_name");
+         $id = $this->uri->segment(5);
+         $this->load->model('quiz_model');
+         $this->load->model('answer_model');
+
+         $questionModel =  new Quiz_Model();
+         //$answers =  new answer_model();
+         $questions = $questionModel->getQuestionsFROMID($id);
+//         for ($i = 0;count($questions) > $i;$i++){
+//              $questions[$i]["answers"] = $answers->getAnswer($questions[$i]["question_id"]);
+//         }
+         echo json_encode($questions);
+     }
+
+    public  function  getAnswersFromID(){
+        $id = $this->uri->segment(5);
+        $this->load->model('answer_model');
+        $answer =  new answer_model();
+        $answers = $answer->getAnswer($id);
+        echo json_encode($answers);
+    }
     
      /**
      * retrive attemps according to the given user
@@ -91,7 +143,7 @@ class Quiz_Controller extends CI_Controller
     public function getAttemps(){
         $this->load->model('Attemp_Model');
         $attempModel = new Attemp_Model();
-        $attempModel->getAttempByUserID($user_id);
+        //$attempModel->getAttempByUserID($user_id);
     }
 
     /**
@@ -130,7 +182,7 @@ class Quiz_Controller extends CI_Controller
                     $questions = $this->session->userdata('questions');
                     $answers = $this->session->userdata("answers");
                     $results = $this->quiz_model->calculateScore($questions, $answers);
-                    $attempModel->addAttemp($user_id, $results);
+                    //$attempModel->addAttemp($user_id, $results);
                     $this->clearSession();
                     $data["results"] = $results;
                     $this->load->view('question_view', $data);
