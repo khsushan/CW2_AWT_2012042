@@ -5,8 +5,9 @@
  */
 var ViewCategoryView = Backbone.View.extend({
         template: _.template($('#viewcategory-template').html()),
-        previousEl: null,
+        keyword: null,
         questions: null,
+
         events: {
             'click .category-link': function (e) {
                 //e.preventDefault();
@@ -54,18 +55,21 @@ var ViewCategoryView = Backbone.View.extend({
         keypress: function (e) {
             var keyword = $("#keyword").val();
             var index = ("abcdefghijklmnopqrstuvwxyz ").indexOf(String.fromCharCode(e.keyCode).toLowerCase());
-            var that = this;
             if (index > -1) {
-                this.questions.searchQuestion(keyword, function (matches) {
-                    var template = _.template($('#navigate-viewquestion-template').html());
-                    that.$el.html(template({keyword: keyword, matches: matches}));
-                    //that.el.find('input').focus();
-                    $("#main").empty();
-                    $("#main").append(that.el);
-
-                });
-
+                this.renderQuestionView(keyword);
             }
+        },
+
+        renderQuestionView:function(keyword){
+            var that = this;
+            this.questions.searchQuestion(keyword, function (matches) {
+                var template = _.template($('#navigate-viewquestion-template').html());
+                that.$el.html(template({keyword: keyword, matches: matches}));
+                //that.el.find('input').focus();
+                $("#main").empty();
+                $("#main").append(that.el);
+
+            });
         },
 
         renderEdit: function (e) {
@@ -76,7 +80,7 @@ var ViewCategoryView = Backbone.View.extend({
             var question = new Question();
             question.set({question_id: questionId, question_value: question_value});
             answers.url = "quiz/question/get/answer/" + questionId;
-            this.previousEl = this.$el;
+            this.keyword =  $("#keyword").val();
             var that = this;
             $.when(answers.fetch()).done(function () {
                 var editTemplate = _.template($('#navigate-edit-delete-question').html());
@@ -128,9 +132,7 @@ var ViewCategoryView = Backbone.View.extend({
 
         back : function(e){
             console.log("its back button bitehcs"+this.previousEl);
-            this.$el = this.previousEl;
-            $("#main").empty();
-            $("#main").append(this.el);
+            this.renderQuestionView(this.keyword);
         }
     })
     ;
