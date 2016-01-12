@@ -11,4 +11,24 @@ var Answer =  Backbone.Model.extend({
     urlRoot : "test"
 });
 
+var AddQuestion = Backbone.Model.extend({
+    validation: {
+        question_value: {
+            required: true
+        },
+        answer_value1: {
+            required: true,
+        },
+        answer_value2: {
+            required: true,
+        },
+        answer_value3: {
+            required: true,
+        },
+        answer_value4: {
+            required: true,
+        }
+    }
+});
+
 
