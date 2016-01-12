@@ -224,26 +224,6 @@
                 </div>
             </div>
         </div>
-        <!--        <div class="container">-->
-        <!--            <div class="row">-->
-        <!--                <div class="col-lg-3">-->
-        <!---->
-        <!--                </div>-->
-        <!--                <div class="col-lg-6 text-center">-->
-        <!--                    <div class="col-lg-6">-->
-        <!--                        User Name: <br><br>-->
-        <!--                        Password:-->
-        <!--                    </div>-->
-        <!--                    <div class="col-lg-6">-->
-        <!--                        <input type="text" maxlength="100"/><br><br>-->
-        <!--                        <input type="password"/><br><br>-->
-        <!--                        <a href="adminView.html" class="btn btn-primary btn-xl page-scroll">Login</a>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--                <div class="col-lg-3">-->
-        <!---->
-        <!--                </div>-->
-        <!--            </div>-->
         <form class="form-horizontal" id="loginform" role="form">
             <div class="form-group">
                 <label for="email" class="col-lg-2 control-label">Email</label>
