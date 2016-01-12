@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['quiz/questions/get'] = 'Quiz_Controller/getQuestionFromCategory';
 $route['quiz/questions/next'] = 'Quiz_Controller/getNextQuestions';
 $route['quiz/question/save'] = 'Quiz_Controller/addQuestion';
+$route['quiz/answer/save'] = 'Quiz_Controller/addAnswer';
 $route['quiz/question/update'] = 'Quiz_Controller/updateQuestion';
 $route['quiz/answer/update'] = 'Quiz_Controller/updateAnswer';
 $route['quiz/category/get/question/(:num)'] = 'Quiz_Controller/getQuestionFromCategoryID';
