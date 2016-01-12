@@ -11,38 +11,42 @@
  *
  * @author Ushan
  */
-class Quiz_Model extends CI_Model {
+class Quiz_Model extends CI_Model
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->load->database();
     }
 
     /*
      * This method will add a new questions and answers to the database 
-     * @param question array
-     *         - This is include the question details with answer
+     * @param data array
+     *         - This is include the question details
      * */
 
-    public function addQuestion($question) {
-        $this->db->where('question_value', $question["question_value"]);
+    public function addQuestion($data)
+    {
+        $this->db->where('question_value', $data["question_value"]);
         $query = $this->db->get('question');
         $question_details = array_values($query->result_array());
         if (count($question_details) == 0) {
-            $data = array(
-                'question_value' => $question["question_value"],
-                'category_id' => $question["category_id"]
-            );
             $this->db->insert('question', $data);
             $last_id = $this->db->insert_id();
-            for ($i = 0; $i < count($question["answers"]); $i++) {
-                $data = array(
-                    'answer_value' => $question["answers"][$i]["answer_value"],
-                    'status' => $question["answers"][$i]["status"],
-                    'question_id' => $last_id
-                );
-                $this->db->insert('answer', $data);
-            }
+            return $last_id;
         }
+        return null;
+    }
+
+    /*
+     * This method will add a new questions and answers to the database
+     * @param data array
+     *         - This is include the question details
+     * */
+    public function addAnswer($data)
+    {
+        $this->db->insert('answer', $data);
+        return $last_id = $this->db->insert_id();
     }
 
     /*
@@ -51,8 +55,9 @@ class Quiz_Model extends CI_Model {
      *         - This is include the question details with answer
      * */
 
-    public function updateQuestion($data,$question_id) {
-        $this->db->where('question_id',$question_id);
+    public function updateQuestion($data, $question_id)
+    {
+        $this->db->where('question_id', $question_id);
         $this->db->update('question', $data);
     }
 
@@ -61,7 +66,8 @@ class Quiz_Model extends CI_Model {
      * @param answer array
      *         - This is include the question details with answer
      * */
-    public function updateAnswer($data,$answer_id){
+    public function updateAnswer($data, $answer_id)
+    {
         $this->db->where('answer_id', $answer_id);
         $this->db->update('answer', $data);
     }
@@ -72,7 +78,8 @@ class Quiz_Model extends CI_Model {
      *         - This is include the question_id which is going to be deleted
      * */
 
-    public function deleteQuestion($question_id) {
+    public function deleteQuestion($question_id)
+    {
         $this->db->where('question_id', $question_id);
         $this->db->delete('question');
     }
@@ -83,10 +90,11 @@ class Quiz_Model extends CI_Model {
      *         - This is include the category of question type
      * */
 
-    public function getQuestions($category) {
+    public function getQuestions($category)
+    {
         $query = $this->db->query("SELECT question_id FROM question WHERE category_id= "
-                . "(SELECT categoryid FROM category WHERE category_name='$category')"
-                . "ORDER BY RAND() LIMIT 10");
+            . "(SELECT categoryid FROM category WHERE category_name='$category')"
+            . "ORDER BY RAND() LIMIT 10");
         $array = array_values($query->result_array());
         return $array;
     }
@@ -96,8 +104,9 @@ class Quiz_Model extends CI_Model {
     * @param category  String
     *         - This is include the category of question type
     * */
-    public function getQuestionsFROMID($categoryid) {
-        $query = $this->db->query("SELECT * FROM question WHERE category_id=".$categoryid);
+    public function getQuestionsFROMID($categoryid)
+    {
+        $query = $this->db->query("SELECT * FROM question WHERE category_id=" . $categoryid);
         $array = array_values($query->result_array());
         return $array;
     }
@@ -108,9 +117,10 @@ class Quiz_Model extends CI_Model {
      *         - This parameter will hold the question id that need retrive from database
      * */
 
-    public function getQuestion($question_id) {
+    public function getQuestion($question_id)
+    {
         $query = $this->db->query("SELECT question_value "
-                . " FROM question WHERE question_id='$question_id'");
+            . " FROM question WHERE question_id='$question_id'");
         return $query->result_array();
     }
 
@@ -122,7 +132,8 @@ class Quiz_Model extends CI_Model {
      *         -This array will hold the all the user given answers in the quiz
      * */
 
-    public function calculateScore($questions, $answers) {
+    public function calculateScore($questions, $answers)
+    {
         $score = 0;
         $feedbackarray = array();
         $result = array();
