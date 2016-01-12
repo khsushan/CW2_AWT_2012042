@@ -48,18 +48,39 @@ class Quiz_Controller extends CI_Controller
      * add question according to the given details.
     **/
     public  function addQuestion(){
+        $json_data = json_decode(file_get_contents('php://input'));
         $this->load->model('quiz_model');
         $quiz_model =  new Quiz_Model();
-        $question =  array();
-        $question["question_value"] = "test";
-        $question["category_id"] = 2;
-        $answers =  array();
-        $answers[0] = array("answer_value"=>"test1","status"=>1);
-        $answers[1] = array("answer_value"=>"test2","status"=>0);
-        $answers[2] = array("answer_value"=>"test3","status"=>0);
-        $answers[3] = array("answer_value"=>"test4","status"=>0);
-        $question["answers"] = $answers;
-        $quiz_model->addQuestion($question);
+        $data = array(
+            'question_value' => $json_data->{'question_value'},
+            'category_id' => $json_data->{'category_id'}
+        );
+        $question_id = $quiz_model->addQuestion($data);
+        if($question_id != null){
+            echo json_encode(array("id"=>$question_id));
+        }else{
+            echo json_encode(array("id"=> null,"error"=>"error while adding to the database duplication question value"));
+        }
+    }
+
+    /**
+     * add answer to the database
+     **/
+    public  function addAnswer(){
+        $json_data = json_decode(file_get_contents('php://input'));
+        $this->load->model('quiz_model');
+        $quiz_model =  new Quiz_Model();
+        $data = array(
+            'answer_value' => $json_data->{'answer_value'},
+            'status' => $json_data->{'status'},
+            'question_id' => $json_data->{'question_id'}
+        );
+        $answerid = $quiz_model->addAnswer($data);
+        if($answerid != null){
+            echo json_encode(array("id"=>$answerid));
+        }else{
+            echo json_encode(array("id"=> null,"error"=>"error while adding to the database"));
+        }
     }
      /**
      *update question from according to the given details
