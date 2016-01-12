@@ -29,6 +29,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/creative.css" type="text/css">
 
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/easyui/themes/default/easyui.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/easyui/themes/icon.css" type="text/css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -83,7 +86,7 @@
                             <a class="btn" href="">View category</a>
                         </li>
                         <li>
-                            <a class="btn" href="#/admin/category/add">Add new category</a>
+                            <a class="btn" href="#/admin/question/add">Add new Question</a>
                         </li>
                         <li>
                             <a class="btn" href="#category">Logout</a>
@@ -209,43 +212,185 @@
     <form id="edit-delete-question-form">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-1">Question</div>
-                <div class="col-md-11">
+                <div class="col-md-2">Question</div>
+                <div class="col-md-10">
                     <input type="text" id="question<%= question.get('question_id') %>" class="form-control"
                            value="<%= question.get('question_value') %>"/>
                 </div>
             </div>
-
+            <div class="row">
+                <br><br>
+            </div>
             <% var i = 0;
             _.each(answers1, function(answer1) { %>
             <div class="row">
-                <div class="col-md-1">Answer</div>
-                <div class="col-md-9">
-                    <input type="text" id="answer_value_<%= answer1.get('answer_id')%>" class="form-control"
+                <div class="col-md-2">Answer <%= i+1 %></div>
+                <div class="col-md-8">
+                    <input type="text" id="answer_value_<%= answer1.get('answer_id') %>" class="form-control"
                            value="<%= answer1.get('answer_value') %>"/>
                 </div>
                 <div class="col-md-1">Status</div>
                 <div class="col-md-1">
                     <% if(answer1.get('status') == 1){ %>
                     <input type="radio" name="status<%= question.get('question_id') %>"
-                           checked="checked" value="<%= answer1.get('answer_id')%>"/>
+                           checked="checked" value="<%= answer1.get('answer_id') %>"/>
                     <%}else{%>
                     <input type="radio" name="status<%= question.get('question_id') %>"
-                           value="<%= answer1.get('answer_id')%>"/>
+                           value="<%= answer1.get('answer_id') %>"/>
                     <%}%>
-                    <input type="hidden" id="answer-id<%= i %>" value="<%= answer1.get('answer_id')%>"/>
+                    <input type="hidden" id="answer-id<%= i %>" value="<%= answer1.get('answer_id') %>"/>
                 </div>
                 <input type="hidden" id="question-id" value="<%= question.get('question_id') %>"/>
+            </div>
+            <div class="row">
+                <br><br>
             </div>
             <% i++;
             });%>
         </div>
     </form>
-    <input type="button" class="btn-success" value="Edit" id="edit-btn" data-id="<%= question.get('question_id') %> "/>
-    <input type="button" class="btn-danger" value="Delete" id="delete-btn"
+    <input type="button" class="btn-xl btn-success" value="Edit" id="edit-btn"
            data-id="<%= question.get('question_id') %> "/>
-    <input type="button" class="btn-default" value="Back" id="back_btn" data-id="<%= question.get('question_id') %> "/>
+    <input type="button" class="btn-xl btn-danger" value="Delete" id="delete-btn"
+           data-id="<%= question.get('question_id') %> "/>
+    <input type="button" class="btn-xl btn-default" value="Back" id="back_btn"
+           data-id="<%=  question.get('question_id') %> "/>
 
+</script>
+
+<script type="text/template" id="add-question">
+    <form id="add-question-form" role="form">
+
+        <div class="row">
+            <div class="col-md-2">Category</div>
+            <div class="col-md-2">
+                <!--                    <div class="dropdown">-->
+                <!--                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category-->
+                <!--                            <span class="caret"></span></button>-->
+                <!--                        <ul class="dropdown-menu">-->
+                <!--                            <% _.each(categories, function(category) { %>-->
+                <!--                            <li><a href="javaScript:void(0);" value="<%= category.get('categoryid') %>" >-->
+                <!--                                    <%= category.get('category_name') %></a></li>-->
+                <!--                            <% }); %>-->
+                <!--                        </ul>-->
+                <select class="easyui-combobox" style="width:200px;" id="category" name="category">
+                    <% _.each(categories, function(category) { %>
+                    <option value="<%= category.get('categoryid') %>">
+                        <%= category.get('category_name') %>
+                    </option>
+                    <% }); %>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-11">
+                <span class="help-block hidden"></span>
+            </div>
+            <br><br>
+        </div>
+        <!-- question value -->
+        <div class="row">
+            <div class="col-md-2">Question</div>
+            <div class="col-md-10 form-group">
+                <input type="text" id="question_value" name="question_value" class="form-control" required/>
+                <span class="help-block hidden"></span>
+            </div>
+        </div>
+        <div class="row">
+            <!--                <div class="col-md-1"></div>-->
+            <!--                <div class="col-md-11">-->
+            <!--                    <span class="help-block hidden"></span>-->
+            <!--                </div>-->
+            <br>
+        </div>
+        <!--end question value-->
+        <!-- answer 1 -->
+        <div class="row form-group">
+            <div class="col-md-2">Answer1</div>
+            <div class="col-md-8 form-group">
+                <input type="text" id="answer_value1" name="answer_value1" class="form-control" required/>
+                <span class="help-block hidden"></span>
+            </div>
+            <div class="col-md-1">Status</div>
+            <div class="col-md-1">
+                <input type="radio" name="status_answer" value="1"/>
+            </div>
+        </div>
+        <div class="row">
+            <!--                <div class="col-md-1"></div>-->
+            <!--                <div class="col-md-11">-->
+            <!--                    <span class="help-block hidden"></span>-->
+            <!--                </div>-->
+            <br>
+        </div>
+        <!-- end answer1 -->
+        <!-- answer 2 -->
+        <div class="row form-group">
+            <div class="col-md-2">Answer2</div>
+            <div class="col-md-8">
+                <input type="text" id="answer_value2" name="answer_value2" class="form-control" required/>
+                <span class="help-block hidden"></span>
+            </div>
+            <div class="col-md-1">Status</div>
+            <div class="col-md-1">
+                <input type="radio" name="status_answer" value="2"/>
+            </div>
+        </div>
+        <div class="row">
+            <!--                <div class="col-md-1"></div>-->
+            <!--                <div class="col-md-11">-->
+            <!--                    <span class="help-block hidden"></span>-->
+            <!--                </div>-->
+            <br>
+        </div>
+        <!-- end answer2 -->
+        <!-- answer 3 -->
+        <div class="row form-group">
+            <div class="col-md-2">Answer3</div>
+            <div class="col-md-8">
+                <input type="text" id="answer_value3" name="answer_value3" class="form-control" required/>
+                <span class="help-block hidden"></span>
+            </div>
+            <div class="col-md-1">Status</div>
+            <div class="col-md-1">
+                <input type="radio" name="status_answer" value="3"/>
+            </div>
+        </div>
+        <div class="row">
+            <!--                <div class="col-md-1"></div>-->
+            <!--                <div class="col-md-11">-->
+            <!--                    <span class="help-block hidden"></span>-->
+            <!--                </div>-->
+            <br>
+        </div>
+        <!-- end answer3 -->
+        <!-- answer 4 -->
+        <div class="row form-group">
+            <div class="col-md-2">Answer4</div>
+            <div class="col-md-8">
+                <input type="text" id="answer_value4" name="answer_value4" class="form-control" required/>
+                <span class="help-block hidden"></span>
+            </div>
+            <div class="col-md-1">Status</div>
+            <div class="col-md-1">
+                <input type="radio" name="status_answer" value="4"/>
+            </div>
+        </div>
+        <div class="row">
+            <!--                <div class="col-md-1"></div>-->
+            <!--                <div class="col-md-11">-->
+            <!--                    <span class="help-block hidden"></span>-->
+            <!--                </div>-->
+            <br>
+            <span class="help-block error hidden" style="color: red" id="erro_status"></span>
+        </div>
+        <!-- end answer4 -->
+        <!-- end answer4 -->
+        <!-- end answer4 -->
+        </div>
+        <button type="button" class="btn btn-default" id="save_btn"> Save</button>
+    </form>
 </script>
 
 
@@ -287,6 +432,7 @@
 <script src="<?php echo base_url(); ?>assets/js/creative.js"></script>
 
 <!-- Backbone JavaScript -->
+<script src="<?php echo base_url(); ?>assets/js/easyui/jquery.easyui.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/backbone/admin/main.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/backbone/admin/admincollection.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/backbone/admin/adminviews.js"></script>
