@@ -5,7 +5,7 @@ var Router = Backbone.Router.extend({
     routes: {
         '': "home",
         'home':"home",
-        "admin/category/add": "addcategory",
+        "admin/question/add": "addquestion",
         "admin/category/view": "viewcategory",
         "user/question/view/:cateroryid": "viewquestion",
         "user/question/edit": "editquestion"
@@ -43,5 +43,11 @@ router.on('route:viewquestion', function () {
 router.on('route:editquestion', function () {
     var homeView = new HomeView();
     homeView.render();
+});
+
+router.on('route:addquestion', function () {
+   var addQuestionView = new AddQuestionView({model:new AddQuestion()});
+    $("#main").empty();
+    $("#main").append(addQuestionView.render().el);
 });
 Backbone.history.start();
