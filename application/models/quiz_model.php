@@ -81,7 +81,8 @@ class Quiz_Model extends CI_Model
     public function deleteQuestion($question_id)
     {
         $this->db->where('question_id', $question_id);
-        $this->db->delete('question');
+        $result = $this->db->delete('question');
+        return $result;
     }
 
     /*
