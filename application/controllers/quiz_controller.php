@@ -114,9 +114,11 @@ class Quiz_Controller extends CI_Controller
      * delete questions from according to the given details
     **/
     public function deleteQuestion(){
+        $id = $this->uri->segment(4);
         $this->load->model('quiz_model');
         $quiz_model =  new Quiz_Model();
-        $quiz_model->deleteQuestion(38);
+        $result = $quiz_model->deleteQuestion($id);
+        echo json_encode(array("delete_question_status"=>$result));
     }
 
     /**
