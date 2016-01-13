@@ -21,8 +21,19 @@ var ViewCategoryView = Backbone.View.extend({
             this.edit(e)
         },
         'click #back_btn': "back",
+
         'click .questionlist': function (e) {
             this.renderEdit(e)
+        },
+        'click .btn-danger': function(e){
+            var that =  this;
+            bootbox.confirm("Are you sure you want to delete?", function(result) {
+                console.log(result)
+                if (result) {
+                    that.delete(e);
+                }
+            });
+
         }
 
     },
@@ -75,6 +86,7 @@ var ViewCategoryView = Backbone.View.extend({
     renderEdit: function (e) {
         var questionId = $(e.currentTarget).data("id");
         var question_value = $(e.currentTarget).data("value");
+        var question_index = $(e.currentTarget).data("index");
         //this.questions.find({quesiton_id:questionId})
         var answers = new Answers();
         var question = new Question();
@@ -85,7 +97,7 @@ var ViewCategoryView = Backbone.View.extend({
         $.when(answers.fetch()).done(function () {
             var editTemplate = _.template($('#navigate-edit-delete-question').html());
             console.log(answers);
-            that.$el.html(editTemplate({question: question, answers1: answers.models}));
+            that.$el.html(editTemplate({question: question, answers1: answers.models, index: question_index}));
             console.log("#editdiv" + questionId);
             $("#editdiv" + questionId).empty();
             $("#editdiv" + questionId).append(that.el);
@@ -132,6 +144,26 @@ var ViewCategoryView = Backbone.View.extend({
 
     back: function (e) {
         this.renderQuestionView(this.keyword);
+    },
+    delete: function (e) {
+        if(!this.keyword){
+            this.keyword = $("#keyword").val();
+        }
+        var questionId = $(e.currentTarget).data("id");
+        var index = $(e.currentTarget).data("index");
+        console.log(index + "===============" + questionId)
+        var question = new Question();
+        question.urlRoot = "quiz/question/delete/"+questionId;
+        var that = this;
+        question.fetch({
+            success: function (responce) {
+                that.questions.remove(that.questions.at(index));
+                that.renderQuestionView(that.keyword);
+            },
+            error: function (responce) {
+
+            }
+        });
     }
 });
 
@@ -194,11 +226,11 @@ var AddQuestionView = Backbone.View.extend({
             answer.urlRoot = "quiz/answer/save"
             question.save(questionDetails, {
                 success: function (responce) {
-                    if(responce.id) {
+                    if (responce.id) {
                         var correct_answer_index = userDetails.status_answer;
                         var answerDetails = null;
                         for (var i = 1; i < 5; i++) {
-                            answerDetails = {answer_value: userDetails["answer_value"+ i], question_id: responce.id}
+                            answerDetails = {answer_value: userDetails["answer_value" + i], question_id: responce.id}
                             if (correct_answer_index == i) {
                                 answerDetails["status"] = 1;
                             } else {
