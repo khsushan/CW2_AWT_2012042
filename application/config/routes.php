@@ -61,10 +61,9 @@ $route['quiz/question/update'] = 'Quiz_Controller/updateQuestion';
 $route['quiz/answer/update'] = 'Quiz_Controller/updateAnswer';
 $route['quiz/category/get/question/(:num)'] = 'Quiz_Controller/getQuestionFromCategoryID';
 $route['quiz/question/get/answer/(:num)'] = 'Quiz_Controller/getAnswersFromID';
-
+$route['quiz/question/delete/(:num)'] = 'Quiz_Controller/deleteQuestion';
 
 $route['user/signup'] = 'User_Controller/signUp';
-$route['quiz/question/delete'] = 'Quiz_Controller/deleteQuestion';
 $route['quiz/category/get/all'] = 'Quiz_Controller/getAllCategories';
 $route['users'] = 'User_Controller/index';
 
