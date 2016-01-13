@@ -98,8 +98,7 @@ var LoginView = Backbone.View.extend({
             $group.find('.help-block').html("").removeClass('hidden');
         }
 
-    })
-    ;
+    });
 
 
 
