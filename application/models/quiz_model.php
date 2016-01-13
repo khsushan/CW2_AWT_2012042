@@ -46,7 +46,7 @@ class Quiz_Model extends CI_Model
     public function addAnswer($data)
     {
         $this->db->insert('answer', $data);
-        return $last_id = $this->db->insert_id();
+        return $this->db->insert_id();
     }
 
     /*
@@ -145,10 +145,11 @@ class Quiz_Model extends CI_Model
             $correct_answer = array_values($query->result_array());
             if ($correct_answer[0]["answer_value"] == $answers[$i]) {
                 $score = $score + 10;
-            } else
-                $feedbackarray[$i]["correct_answer"] = $correct_answer[0]["answer_value"];
+            }
+            $feedbackarray[$i]["correct_answer"] = $correct_answer[0]["answer_value"];
             $feedbackarray[$i]["user_answer"] = $answers[$i];
             $feedbackarray[$i]["question_number"] = $i;
+            $feedbackarray[$i]["question_id"] = $questions[$i]["question_id"];
         }
         $result["score"] = $score;
         $result["feedbaks"] = $feedbackarray;
