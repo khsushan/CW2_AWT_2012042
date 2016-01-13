@@ -138,17 +138,11 @@ class Quiz_Controller extends CI_Controller
      *
      */
      public  function  getQuestionFromCategoryID(){
-         //$category = $this->input->post("category_name");
          $id = $this->uri->segment(5);
          $this->load->model('quiz_model');
          $this->load->model('answer_model');
-
          $questionModel =  new Quiz_Model();
-         //$answers =  new answer_model();
          $questions = $questionModel->getQuestionsFROMID($id);
-//         for ($i = 0;count($questions) > $i;$i++){
-//              $questions[$i]["answers"] = $answers->getAnswer($questions[$i]["question_id"]);
-//         }
          echo json_encode($questions);
      }
 
@@ -205,7 +199,8 @@ class Quiz_Controller extends CI_Controller
                     $questions = $this->session->userdata('questions');
                     $answers = $this->session->userdata("answers");
                     $results = $this->quiz_model->calculateScore($questions, $answers);
-                    //$attempModel->addAttemp($user_id, $results);
+                    $user_details =   $this->session->userdata("user");
+                    $attempModel->addAttemp($user_details[0]["id"], $results);
                     $this->clearSession();
                     $data["results"] = $results;
                     $this->load->view('question_view', $data);
