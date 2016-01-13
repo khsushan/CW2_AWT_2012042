@@ -20,6 +20,10 @@ class Main_Controller extends CI_Controller
             if($user[0]["privilages"] == 1 ){
                 $this->load->view('adminview.php', $data);
             }else{
+                $this->load->model('category_model');
+                $categoryModel = new category_model();
+                $data = array();
+                $data["category"] =$categoryModel->getAllCategories();
                 $this->load->view('question_view', $data);
             }
         }else{
