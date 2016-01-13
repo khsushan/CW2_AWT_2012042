@@ -41,4 +41,12 @@ class Login_Controller extends CI_Controller
         }
     }
 
+    function logout(){
+        $this->session->unset_userdata("questions");
+        $this->session->unset_userdata("question_count");
+        $this->session->unset_userdata("answers");
+        $this->session->unset_userdata("user");
+
+    }
+
 }
