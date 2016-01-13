@@ -179,27 +179,29 @@
 
             <div class="row no-gutter text-left" style="overflow-y: scroll; height:400px;">
                 <%if(matches){
+                var i =0;
                 _.each(matches, function(question) { %>
                 <div class="col-md-12">
                     <div class="col-md-11 text-left">
                         <div class="questionlist"
                              data-toggle="collapse" data-id="<%= question.get('question_id') %>"
                              data-value="<%= question.get('question_value')%>"
-                             data-target="#editdiv<%= question.get('question_id')%>">
+                             data-target="#editdiv<%= question.get('question_id')%>"
+                             data-index="<%= i %>"
+                            >
                             <%= question.get('question_value')%><br><br>
                         </div>
                     </div>
                     <div class="col-md-1">
                         <input type=" button" class="btn-danger" value="Delete"
-                               data-id="<%= question.get('question_id') %>">
+                               data-id="<%= question.get('question_id') %>" data-index="<%= i %>">
                     </div>
                 </div>
-
-
                 <div id="editdiv<%= question.get('question_id') %>" class="collapse">
-                    helooooooooooooooooooooooooooooooooooooo
+
                 </div>
-                <% });
+                <% i++
+                });
                 }%>
             </div>
         </div>
@@ -250,11 +252,11 @@
         </div>
     </form>
     <input type="button" class="btn-xl btn-success" value="Edit" id="edit-btn"
-           data-id="<%= question.get('question_id') %> "/>
+           data-id="<%= question.get('question_id') %>"/>
     <input type="button" class="btn-xl btn-danger" value="Delete" id="delete-btn"
-           data-id="<%= question.get('question_id') %> "/>
+           data-id="<%= question.get('question_id') %>" data-index="<%= index %>"/>
     <input type="button" class="btn-xl btn-default" value="Back" id="back_btn"
-           data-id="<%=  question.get('question_id') %> "/>
+           data-id="<%=  question.get('question_id') %>"/>
 
 </script>
 
@@ -417,6 +419,23 @@
     </div>
 </section>
 
+<div class="modal fade" id="confirm-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="header-text"></span><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Are You Sure?</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-ok" data-dismiss="modal">OK</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- jQuery -->
 <script src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
 
@@ -432,12 +451,14 @@
 <script src="<?php echo base_url(); ?>assets/js/creative.js"></script>
 
 <!-- Backbone JavaScript -->
-<script src="<?php echo base_url(); ?>assets/js/easyui/jquery.easyui.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/backbone/admin/main.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/backbone/admin/admincollection.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/backbone/admin/adminviews.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/backbone/admin/adminmodel.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/backbone/admin/adminrouter.js"></script>
+
+
 
 </body>
 
