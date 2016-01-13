@@ -68,3 +68,4 @@ $route['quiz/category/get/all'] = 'Quiz_Controller/getAllCategories';
 $route['users'] = 'User_Controller/index';
 
 $route['user/login'] = 'Login_Controller/login';
+$route['user/logout'] = 'Login_Controller/logout';
