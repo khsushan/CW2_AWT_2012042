@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of Attemp_Model
+ * Handeling all attemp table data in database
  *
  * @author Ushan
  */
