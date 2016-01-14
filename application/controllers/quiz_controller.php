@@ -68,14 +68,14 @@ class Quiz_Controller extends CI_Controller
      **/
     public  function addAnswer(){
         $json_data = json_decode(file_get_contents('php://input'));
-        $this->load->model('quiz_model');
-        $quiz_model =  new Quiz_Model();
+        $this->load->model('answer_model');
+        $answer_model =  new answer_model();
         $data = array(
             'answer_value' => $json_data->{'answer_value'},
             'status' => $json_data->{'status'},
             'question_id' => $json_data->{'question_id'}
         );
-        $answerid = $quiz_model->addAnswer($data);
+        $answerid = $answer_model->addAnswer($data);
         if($answerid != null){
             echo json_encode(array("id"=>$answerid));
         }else{
@@ -92,7 +92,8 @@ class Quiz_Controller extends CI_Controller
         $data = array(
             'question_value' => $json_data->{'question_value'}
         );
-         $quiz_model->updateQuestion($data,$json_data->{'question_id'});
+        $status = $quiz_model->updateQuestion($data,$json_data->{'question_id'});
+        echo json_encode(array("update_question_status"=>$status));
     }
 
     /**
@@ -100,13 +101,14 @@ class Quiz_Controller extends CI_Controller
      **/
     public function updateAnswer(){
         $json_data = json_decode(file_get_contents('php://input'));
-        $this->load->model('quiz_model');
-        $quiz_model =  new Quiz_Model();
+        $this->load->model('answer_model');
+        $answer_model =  new answer_model();
         $data = array(
             'answer_value' => $json_data->{'answer_value'},
             'status' => $json_data->{'answer_status'}
         );
-        $quiz_model->updateAnswer($data,$json_data->{'answer_id'});
+        $status = $answer_model->updateAnswer($data,$json_data->{'answer_id'});
+        echo json_encode(array("update_answer_status"=>$status));
     }
 
     
@@ -135,7 +137,7 @@ class Quiz_Controller extends CI_Controller
     }
 
     /**
-     *
+     * This function will handle get get question from category requests
      */
      public  function  getQuestionFromCategoryID(){
          $id = $this->uri->segment(5);
@@ -146,21 +148,15 @@ class Quiz_Controller extends CI_Controller
          echo json_encode($questions);
      }
 
+    /**
+     * This function will handle get get answers from questionid requests
+     */
     public  function  getAnswersFromID(){
         $id = $this->uri->segment(5);
         $this->load->model('answer_model');
         $answer =  new answer_model();
         $answers = $answer->getAnswer($id);
         echo json_encode($answers);
-    }
-    
-     /**
-     * retrive attemps according to the given user
-    **/
-    public function getAttemps(){
-        $this->load->model('Attemp_Model');
-        $attempModel = new Attemp_Model();
-        //$attempModel->getAttempByUserID($user_id);
     }
 
     /**
@@ -203,6 +199,8 @@ class Quiz_Controller extends CI_Controller
                     $attempModel->addAttemp($user_details[0]["id"], $results);
                     $this->clearSession();
                     $data["results"] = $results;
+                    $data["user"] = $user_details[0]["name"];
+                    $data["attempts"] = $attempModel->getAttempByUserID($user_details[0]["id"]);
                     $this->load->view('question_view', $data);
                 } else {
                     //itterate  question
