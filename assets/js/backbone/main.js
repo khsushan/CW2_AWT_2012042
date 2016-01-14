@@ -3,6 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/**
+*  Serialize form data
+* */
  $.fn.serializeObject = function () {
     "use strict";
     var a = {}, b = function (b, c) {
@@ -12,7 +15,9 @@
     return $.each(this.serializeArray(), b), a
 };
 
-
+/**
+ *  Backbone validation function
+ * */
 _.extend(Backbone.Validation.callbacks, {
     valid: function (view, attr) {
         var $el = view.$('[name=' + attr + ']'),
