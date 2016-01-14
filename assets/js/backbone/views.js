@@ -21,9 +21,14 @@ var SignUpView = Backbone.View.extend({
         if (this.model.isValid(true)) {
             user.save(userDetails, {
                 success: function (isAdded) {
-                    console.log(isAdded);
-                    //router.navigate('', {trigger: true});
+                    bootbox.alert("User signup process finished success", function () {
+                    });
+                },
+                error: function (e) {
+                    bootbox.alert("User signup process failed" + e, function () {
+                    });
                 }
+
             });
         }
         return false;
@@ -31,7 +36,6 @@ var SignUpView = Backbone.View.extend({
     template: _.template($('#signin-template').html()),
     render: function () {
         this.$el.html(this.template);
-        //$("#navigate").html(_.template($('#navigate-home-template').html()));
         return this;
     }
 });
@@ -47,58 +51,58 @@ var HomeView = Backbone.View.extend({
 });
 
 var LoginView = Backbone.View.extend({
-        template: _.template($('#navigate-home-template').html()),
+    template: _.template($('#navigate-home-template').html()),
 
-        events: {
-            //signup button click
-            'click #loginButton': function (e) {
-                e.preventDefault();
-                this.login();
-            }
-        },
-        initialize: function () {
-            Backbone.Validation.bind(this);
-        },
-        render: function (options) {
-            $("#navigate").html(this.template);
-            this.$el.html(_.template($('#login-template').html()));
-            return this;
-        },
-        login: function () {
-            var loginDetails = $("#loginform").serializeObject();
-            console.log(loginDetails);
-            var login = new Login();
-            this.model.set(loginDetails);
-            var that = this
-            if (this.model.isValid(true)) {
-                login.save(loginDetails, {
-                    success: function (responce) {
-                        var responceJSON = JSON.parse(JSON.stringify(responce));
-                        console.log(responceJSON["error"]);
-                        if (responceJSON.error) {
-                            that.loginFailed();
-                        } else {
-                            window.location.href = "http://localhost/CW2_AWT_2012042/"
-                        }
-                    }
-                });
-            }
-        },
-
-        loginFailed: function () {
-
-            var $passwordelement = $("#password")
-            $group = $passwordelement.closest('.form-group');
-            $group.addClass('has-error');
-            $group.find('.help-block').html("invalid username or password").removeClass('hidden');
-
-            var $usernameelemenet = $("#email");
-            $group = $usernameelemenet.closest('.form-group');
-            $group.addClass('has-error');
-            $group.find('.help-block').html("").removeClass('hidden');
+    events: {
+        //signup button click
+        'click #loginButton': function (e) {
+            e.preventDefault();
+            this.login();
         }
+    },
+    initialize: function () {
+        Backbone.Validation.bind(this);
+    },
+    render: function (options) {
+        $("#navigate").html(this.template);
+        this.$el.html(_.template($('#login-template').html()));
+        return this;
+    },
+    login: function () {
+        var loginDetails = $("#loginform").serializeObject();
+        console.log(loginDetails);
+        var login = new Login();
+        this.model.set(loginDetails);
+        var that = this
+        if (this.model.isValid(true)) {
+            login.save(loginDetails, {
+                success: function (responce) {
+                    var responceJSON = JSON.parse(JSON.stringify(responce));
+                    console.log(responceJSON["error"]);
+                    if (responceJSON.error) {
+                        that.loginFailed();
+                    } else {
+                        window.location.href = "http://localhost/CW2_AWT_2012042/"
+                    }
+                }
+            });
+        }
+    },
 
-    });
+    loginFailed: function () {
+
+        var $passwordelement = $("#password")
+        $group = $passwordelement.closest('.form-group');
+        $group.addClass('has-error');
+        $group.find('.help-block').html("invalid username or password").removeClass('hidden');
+
+        var $usernameelemenet = $("#email");
+        $group = $usernameelemenet.closest('.form-group');
+        $group.addClass('has-error');
+        $group.find('.help-block').html("").removeClass('hidden');
+    }
+
+});
 
 
 
