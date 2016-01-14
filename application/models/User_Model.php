@@ -27,7 +27,8 @@ class User_Model extends CI_Model {
      * @param password  String
      *         - password
      * @param name String
-     *         - name
+     *         - namer
+     * return boolean
      * */
 
     public function addNewUser($data) {
