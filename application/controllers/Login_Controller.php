@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of Login_Controller
+ * This controller will handle the all the loging and logout requests
  *
  * @author Ushan
  */
@@ -21,7 +21,7 @@ class Login_Controller extends CI_Controller
     }
 
     /**
-     * This method will handle the signup login process
+     * This method will handle the login process
      */
     function login()
     {
@@ -41,6 +41,9 @@ class Login_Controller extends CI_Controller
         }
     }
 
+    /**
+     * This method will handle the logout process
+     */
     function logout(){
         $this->session->unset_userdata("questions");
         $this->session->unset_userdata("question_count");
