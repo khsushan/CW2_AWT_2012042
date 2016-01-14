@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of User_Model
+ * Handle all the user tabale data
  *
  * @author Ushan
  */
