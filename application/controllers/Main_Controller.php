@@ -12,7 +12,9 @@ class Main_Controller extends CI_Controller
         parent::__construct();
         $this->load->library('session');
     }
-
+    /**
+      * This method will redirect admin users to admin view and noramal users to quiz view after login
+     */
     public  function index(){
         if(isset($_SESSION['user']) != null){
             $user = $this->session->userdata('user');
