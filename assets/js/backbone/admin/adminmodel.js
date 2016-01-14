@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 var Question =  Backbone.Model.extend({
-    urlRoot: "test"
+    urlRoot: ""
 });
 
 var Answer =  Backbone.Model.extend({
-    urlRoot : "test"
+    urlRoot : ""
 });
 
 var AddQuestion = Backbone.Model.extend({
