@@ -4,17 +4,14 @@
  * and open the template in the editor.
  */
 var Categories = Backbone.Collection.extend({
-    url: 'quiz/category/get/all'
+    url: 'quiz/category/all/get'
 });
 
 var Questions = Backbone.Collection.extend({
-
-    url: 'quiz/category/get/question/1',
-
+    url: 'quiz/category/question/get/1',
     searchQuestion:function(keyword,callback){
         var matches = [];
         this.each(function(model) {
-            //console.log(model.attributes["question_value"]+":::::::::::::::::::::::::::::::::::::")
             if( model.attributes.hasOwnProperty("question_value")
                 && model.attributes["question_value"].toLowerCase().indexOf(keyword.toLowerCase()) > -1 ){
                 matches.push(model);
@@ -26,5 +23,5 @@ var Questions = Backbone.Collection.extend({
 });
 
 var Answers =  Backbone.Collection.extend({
-    url: 'quiz/question/get/answer/1'
+    url: 'quiz/question/answer/get/1'
 });
