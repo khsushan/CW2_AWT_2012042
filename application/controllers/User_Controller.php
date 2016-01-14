@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of User_Controller
+ * This class will handle all the signup requests;
  *
  * @author Ushan
  */
