@@ -49,17 +49,6 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.validation/0.11.5/backbone-validation.js"
         type="text/javascript"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-//        var el = $("input:text").get(0);
-//        var elemLen = el.value.length;
-//
-//        el.selectionStart = elemLen;
-//        el.selectionEnd = elemLen;
-//        el.focus();
-    });
-</script>
-
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -266,15 +255,6 @@
         <div class="row">
             <div class="col-md-2">Category</div>
             <div class="col-md-2">
-                <!--                    <div class="dropdown">-->
-                <!--                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category-->
-                <!--                            <span class="caret"></span></button>-->
-                <!--                        <ul class="dropdown-menu">-->
-                <!--                            <% _.each(categories, function(category) { %>-->
-                <!--                            <li><a href="javaScript:void(0);" value="<%= category.get('categoryid') %>" >-->
-                <!--                                    <%= category.get('category_name') %></a></li>-->
-                <!--                            <% }); %>-->
-                <!--                        </ul>-->
                 <select class="easyui-combobox" style="width:200px;" id="category" name="category">
                     <% _.each(categories, function(category) { %>
                     <option value="<%= category.get('categoryid') %>">
@@ -300,10 +280,6 @@
             </div>
         </div>
         <div class="row">
-            <!--                <div class="col-md-1"></div>-->
-            <!--                <div class="col-md-11">-->
-            <!--                    <span class="help-block hidden"></span>-->
-            <!--                </div>-->
             <br>
         </div>
         <!--end question value-->
@@ -320,10 +296,6 @@
             </div>
         </div>
         <div class="row">
-            <!--                <div class="col-md-1"></div>-->
-            <!--                <div class="col-md-11">-->
-            <!--                    <span class="help-block hidden"></span>-->
-            <!--                </div>-->
             <br>
         </div>
         <!-- end answer1 -->
@@ -340,10 +312,6 @@
             </div>
         </div>
         <div class="row">
-            <!--                <div class="col-md-1"></div>-->
-            <!--                <div class="col-md-11">-->
-            <!--                    <span class="help-block hidden"></span>-->
-            <!--                </div>-->
             <br>
         </div>
         <!-- end answer2 -->
@@ -360,10 +328,6 @@
             </div>
         </div>
         <div class="row">
-            <!--                <div class="col-md-1"></div>-->
-            <!--                <div class="col-md-11">-->
-            <!--                    <span class="help-block hidden"></span>-->
-            <!--                </div>-->
             <br>
         </div>
         <!-- end answer3 -->
@@ -380,10 +344,6 @@
             </div>
         </div>
         <div class="row">
-            <!--                <div class="col-md-1"></div>-->
-            <!--                <div class="col-md-11">-->
-            <!--                    <span class="help-block hidden"></span>-->
-            <!--                </div>-->
             <br>
             <span class="help-block error hidden" style="color: red" id="erro_status"></span>
         </div>
