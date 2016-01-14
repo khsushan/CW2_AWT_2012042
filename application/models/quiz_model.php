@@ -39,17 +39,6 @@ class Quiz_Model extends CI_Model
     }
 
     /*
-     * This method will add a new questions and answers to the database
-     * @param data array
-     *         - This is include the question details
-     * */
-    public function addAnswer($data)
-    {
-        $this->db->insert('answer', $data);
-        return $this->db->insert_id();
-    }
-
-    /*
      * This method will update a questions and answers in the database 
      * @param question array
      *         - This is include the question details with answer
@@ -58,19 +47,11 @@ class Quiz_Model extends CI_Model
     public function updateQuestion($data, $question_id)
     {
         $this->db->where('question_id', $question_id);
-        $this->db->update('question', $data);
+        $result = $this->db->update('question', $data);
+        return $result;
     }
 
-    /*
-     * This method will update an answer in the database
-     * @param answer array
-     *         - This is include the question details with answer
-     * */
-    public function updateAnswer($data, $answer_id)
-    {
-        $this->db->where('answer_id', $answer_id);
-        $this->db->update('answer', $data);
-    }
+
 
     /*
      * This method will delete a questions and answers in the database 
