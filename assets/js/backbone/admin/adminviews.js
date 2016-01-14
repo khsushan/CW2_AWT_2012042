@@ -10,11 +10,9 @@ var ViewCategoryView = Backbone.View.extend({
 
     events: {
         'click .category-link': function (e) {
-            //e.preventDefault();
             this.renderQuestion(e.target.getAttribute('data-id'));
         },
         'keyup #keyword': function (e) {
-            //console.log(this.questions);
             this.keypress(e);
         },
         'click #edit-btn': function (e) {
@@ -37,11 +35,7 @@ var ViewCategoryView = Backbone.View.extend({
         }
 
     },
-    initialize: function () {
-
-    },
     render: function () {
-        //this.$el.html(this.template);
         var categories = new Categories();
         var that = this;
         categories.fetch().done(function () {
@@ -52,7 +46,7 @@ var ViewCategoryView = Backbone.View.extend({
 
     renderQuestion: function (id) {
         var questions = new Questions();
-        questions.url = "quiz/category/get/question/" + id;
+        questions.url = "quiz/category/question/get/" + id;
         var that = this;
         questions.fetch().done(function () {
             var questionTemplate = _.template($('#navigate-viewquestion-template').html());
@@ -76,7 +70,6 @@ var ViewCategoryView = Backbone.View.extend({
         this.questions.searchQuestion(keyword, function (matches) {
             var template = _.template($('#navigate-viewquestion-template').html());
             that.$el.html(template({keyword: keyword, matches: matches}));
-            //that.el.find('input').focus();
             $("#main").empty();
             $("#main").append(that.el);
 
@@ -91,7 +84,7 @@ var ViewCategoryView = Backbone.View.extend({
         var answers = new Answers();
         var question = new Question();
         question.set({question_id: questionId, question_value: question_value});
-        answers.url = "quiz/question/get/answer/" + questionId;
+        answers.url = "quiz/question/answer/get/" + questionId;
         this.keyword = $("#keyword").val();
         var that = this;
         $.when(answers.fetch()).done(function () {
@@ -115,6 +108,7 @@ var ViewCategoryView = Backbone.View.extend({
         question.save(questionDetails, {
             success: function (responce) {
                 var answerID = "";
+                var response_status = true;;
                 var answerValue = "";
                 var name = "status" + questionid;
                 var answerStatus = $('input[name="' + name + '"]:checked', '#edit-delete-question-form').val();
@@ -134,15 +128,27 @@ var ViewCategoryView = Backbone.View.extend({
                     answer.save(answerDetails, {
                         success: function (responce) {
                             console.log("succses saved answers")
+                        },
+                        error: function(){
+                            response_status = false;
                         }
                     });
                 }
+
+                var message = "question upating failed"
+                if(response_status){
+                    message = "question updatin success";
+                }
+                bootbox.alert(message, function () {
+                });
+
             }
+
         });
 
     },
 
-    back: function (e) {
+    back: function () {
         this.renderQuestionView(this.keyword);
     },
     delete: function (e) {
@@ -151,7 +157,6 @@ var ViewCategoryView = Backbone.View.extend({
         }
         var questionId = $(e.currentTarget).data("id");
         var index = $(e.currentTarget).data("index");
-        console.log(index + "===============" + questionId)
         var question = new Question();
         question.urlRoot = "quiz/question/delete/"+questionId;
         var that = this;
@@ -221,9 +226,9 @@ var AddQuestionView = Backbone.View.extend({
             var questionDetails = {question_value: userDetails.question_value, category_id: userDetails.category};
             console.log(questionDetails);
             var question = new Question();
-            question.urlRoot = "quiz/question/save"
+            question.urlRoot = "quiz/question/create"
             var answer = new Answer();
-            answer.urlRoot = "quiz/answer/save"
+            answer.urlRoot = "quiz/answer/create"
             question.save(questionDetails, {
                 success: function (responce) {
                     if (responce.id) {
@@ -240,7 +245,8 @@ var AddQuestionView = Backbone.View.extend({
                             answer.save(answerDetails, {
                                 success: function (responce) {
                                     if (responce.id) {
-                                        console.log(responce.id);
+                                        bootbox.alert("Add Question process finished success", function () {
+                                        });
                                     }
                                 }
                             });
