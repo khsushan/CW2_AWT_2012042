@@ -140,33 +140,6 @@
             </div>
         </div>
         <div class="container">
-            <!--<form id="signup-user-form">
-                <div class="row">
-                    <div class="col-lg-3">
-
-                    </div>
-
-                    <div class="col-lg-6 text-center">
-                        <div class="col-lg-6">
-                            Email:<br><br>
-                            User Name: <br><br>
-                            Password:<br><br>
-                            Confirm Password:
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" id="email" maxlength="100"/><br><br>
-                            <input type="text" id="name" maxlength="100"/><br><br>
-                            <input type="password" id="password"/><br><br>
-                            <input type="password" id="confirmpassword"/><br><br>
-                            <button type="submit" class="btn btn-primary btn-xl page-scroll">Sign In</button>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3">
-
-                    </div>
-                </div>
-            </form>-->
             <form class="form-horizontal" id="signupform" role="form">
 
                 <div class="form-group">
