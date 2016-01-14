@@ -109,8 +109,29 @@ and open the template in the editor.
         <!--Score View Page -->
         <form name="userinput" action="<?php echo base_url(); ?>" method="post">
 
-            <h1>Your Score is <?php echo $results["score"] ?>%</h1>
+            <h1>Hi <?php echo $user ?> ,Your Score is <?php echo $results["score"] ?>%</h1>
+            <h1>Result of previous attempts</h1>
+            <table style="width:100%">
+                <tr>
+                    <th>Attmpt ID</th>
+                    <th>Score</th>
+                    <th>TIme</th>
+                </tr>
+                <?php
+                //$attempts = $results["attemps"];
+                $total_score =0 ;
+                for ($i = 0; $i < count($attempts); $i++) {
 
+                ?>
+                <tr>
+                    <td> <?php echo $attempts[$i]["attempt_id"]; ?> </td>
+                    <td> <?php echo $attempts[$i]["score"]; ?> </td>
+                    <td> <?php echo $attempts[$i]["time"]; ?> </td>
+                </tr>
+                <?php $total_score += $attempts[$i]["score"];
+                } ?>
+            </table>
+            <h1>Your Average is : <?php echo ($total_score/count($attempts)) ?> %</h1>
             <p>
                 <button type="submit" class="btn btn-default btn-lg"
                         id="try_again_btn" name="try_again_btn" >
