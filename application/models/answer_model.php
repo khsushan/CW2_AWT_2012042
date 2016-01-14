@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of answer
+ * This model class will handle the all the answer based database transaction
  *
  * @author Ushan
  */
