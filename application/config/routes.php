@@ -53,19 +53,25 @@ $route['default_controller'] = 'Main_Controller';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+//question
 $route['quiz/questions/get'] = 'Quiz_Controller/getQuestionFromCategory';
 $route['quiz/questions/next'] = 'Quiz_Controller/getNextQuestions';
-$route['quiz/question/save'] = 'Quiz_Controller/addQuestion';
-$route['quiz/answer/save'] = 'Quiz_Controller/addAnswer';
+//question API
+$route['quiz/question/create'] = 'Quiz_Controller/addQuestion';
 $route['quiz/question/update'] = 'Quiz_Controller/updateQuestion';
-$route['quiz/answer/update'] = 'Quiz_Controller/updateAnswer';
-$route['quiz/category/get/question/(:num)'] = 'Quiz_Controller/getQuestionFromCategoryID';
-$route['quiz/question/get/answer/(:num)'] = 'Quiz_Controller/getAnswersFromID';
+$route['quiz/category/question/get/(:num)'] = 'Quiz_Controller/getQuestionFromCategoryID';
 $route['quiz/question/delete/(:num)'] = 'Quiz_Controller/deleteQuestion';
 
-$route['user/signup'] = 'User_Controller/signUp';
-$route['quiz/category/get/all'] = 'Quiz_Controller/getAllCategories';
-$route['users'] = 'User_Controller/index';
+//answer API
+$route['quiz/answer/create'] = 'Quiz_Controller/addAnswer';
+$route['quiz/answer/update'] = 'Quiz_Controller/updateAnswer';
+$route['quiz/question/answer/get/(:num)'] = 'Quiz_Controller/getAnswersFromID';
 
+//categoty API
+$route['quiz/category/all/get'] = 'Quiz_Controller/getAllCategories';
+
+//User API
+$route['users'] = 'User_Controller/index';
+$route['user/signup'] = 'User_Controller/signUp';
 $route['user/login'] = 'Login_Controller/login';
 $route['user/logout'] = 'Login_Controller/logout';

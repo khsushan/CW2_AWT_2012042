@@ -23,7 +23,21 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `question_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`answer_id`),
   KEY `FK__question` (`question_id`),
-  CONSTRAINT `FK__question` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
+  CONSTRAINT `FK__question` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+
+
+-- Dumping structure for table question.attemp
+CREATE TABLE IF NOT EXISTS `attemp` (
+  `attempt_id` int(10) NOT NULL AUTO_INCREMENT,
+  `score` int(3) NOT NULL,
+  `user_id` int(10) NOT NULL,
+  `time` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`attempt_id`),
+  KEY `FK__user` (`user_id`),
+  CONSTRAINT `FK__user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
@@ -33,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
 CREATE TABLE IF NOT EXISTS `category` (
   `categoryid` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` text NOT NULL,
+  `imageurl` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`categoryid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -52,13 +67,41 @@ CREATE TABLE IF NOT EXISTS `question` (
 -- Data exporting was unselected.
 
 
+-- Dumping structure for table question.question_attempt
+CREATE TABLE IF NOT EXISTS `question_attempt` (
+  `question_id` int(11) NOT NULL,
+  `attempt_id` int(10) NOT NULL,
+  `isCorrect` tinyint(4) NOT NULL,
+  PRIMARY KEY (`question_id`,`attempt_id`),
+  KEY `FK_question_attempt_attemp` (`attempt_id`),
+  CONSTRAINT `FK_question_attempt_attemp` FOREIGN KEY (`attempt_id`) REFERENCES `attemp` (`attempt_id`) ON UPDATE CASCADE,
+  CONSTRAINT `FK_question_attempt_question` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+
+
+-- Dumping structure for table question.role
+CREATE TABLE IF NOT EXISTS `role` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+
+
 -- Dumping structure for table question.user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `password` varchar(200) NOT NULL,
+  `privilages` int(1) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
+  UNIQUE KEY `email` (`email`),
+  KEY `FK_user_role` (`privilages`),
+  CONSTRAINT `FK_user_role` FOREIGN KEY (`privilages`) REFERENCES `role` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
