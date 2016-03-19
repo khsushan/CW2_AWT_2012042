@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.6.12-log - MySQL Community Server (GPL)
+-- Server version:               5.6.17 - MySQL Community Server (GPL)
 -- Server OS:                    Win64
 -- HeidiSQL Version:             9.3.0.4984
 -- --------------------------------------------------------
@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS `answer` (
   PRIMARY KEY (`answer_id`),
   KEY `FK__question` (`question_id`),
   CONSTRAINT `FK__question` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=latin1;
 
--- Dumping data for table question.answer: ~143 rows (approximately)
+-- Dumping data for table question.answer: ~9 rows (approximately)
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
 INSERT INTO `answer` (`answer_id`, `answer_value`, `status`, `question_id`) VALUES
 	(3, 'largest railway station', 1, 1),
@@ -58,7 +58,7 @@ INSERT INTO `answer` (`answer_id`, `answer_value`, `status`, `question_id`) VALU
 	(32, 'Logical error', 0, 7),
 	(33, 'Internal error', 0, 7),
 	(34, 'Feng Shui', 0, 8),
-	(35, 'Ikebana', 2, 8),
+	(35, 'Ikebana', 1, 8),
 	(36, 'Florabana', 0, 8),
 	(37, 'None of the Above', 0, 8),
 	(38, 'Australia', 0, 9),
@@ -181,15 +181,19 @@ CREATE TABLE IF NOT EXISTS `attemp` (
   PRIMARY KEY (`attempt_id`),
   KEY `FK__user` (`user_id`),
   CONSTRAINT `FK__user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Dumping data for table question.attemp: ~3 rows (approximately)
+-- Dumping data for table question.attemp: ~4 rows (approximately)
 /*!40000 ALTER TABLE `attemp` DISABLE KEYS */;
 INSERT INTO `attemp` (`attempt_id`, `score`, `user_id`, `time`) VALUES
 	(2, 60, 6, '00.00'),
 	(3, 60, 6, '00.00'),
 	(4, 40, 6, '00.00'),
-	(5, 60, 6, '00.00');
+	(5, 60, 6, '00.00'),
+	(6, 60, 8, '00.00'),
+	(7, 50, 8, '00.00'),
+	(8, 30, 8, '00.00'),
+	(9, 70, 8, '00.00');
 /*!40000 ALTER TABLE `attemp` ENABLE KEYS */;
 
 
@@ -218,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   PRIMARY KEY (`question_id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`categoryid`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table question.question: ~35 rows (approximately)
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
@@ -272,49 +276,89 @@ CREATE TABLE IF NOT EXISTS `question_attempt` (
   CONSTRAINT `FK_question_attempt_question` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table question.question_attempt: ~35 rows (approximately)
+-- Dumping data for table question.question_attempt: ~0 rows (approximately)
 /*!40000 ALTER TABLE `question_attempt` DISABLE KEYS */;
 INSERT INTO `question_attempt` (`question_id`, `attempt_id`, `isCorrect`) VALUES
+	(1, 7, 0),
+	(1, 8, 0),
 	(2, 4, 1),
+	(3, 8, 0),
 	(4, 4, 1),
+	(4, 7, 1),
+	(4, 8, 1),
+	(4, 9, 1),
 	(5, 4, 0),
+	(5, 9, 1),
+	(6, 7, 1),
+	(6, 8, 0),
+	(6, 9, 1),
 	(7, 4, 1),
+	(7, 7, 1),
+	(7, 8, 0),
+	(7, 9, 1),
 	(8, 4, 0),
+	(8, 7, 0),
+	(8, 8, 0),
+	(8, 9, 0),
 	(9, 4, 0),
+	(9, 7, 0),
 	(10, 4, 0),
+	(10, 7, 1),
+	(10, 8, 1),
+	(10, 9, 0),
 	(11, 4, 0),
+	(11, 7, 1),
+	(11, 8, 0),
+	(11, 9, 1),
 	(12, 4, 1),
+	(12, 7, 0),
+	(12, 8, 0),
+	(12, 9, 1),
+	(13, 9, 0),
+	(14, 7, 0),
+	(14, 9, 1),
 	(15, 4, 0),
+	(15, 8, 1),
 	(16, 2, 1),
 	(16, 3, 1),
 	(16, 5, 0),
+	(16, 6, 1),
 	(17, 2, 1),
 	(17, 3, 1),
 	(17, 5, 1),
 	(18, 2, 1),
 	(18, 3, 1),
 	(18, 5, 1),
+	(18, 6, 1),
 	(19, 2, 0),
 	(19, 3, 1),
 	(20, 3, 0),
+	(20, 6, 0),
 	(21, 2, 0),
 	(21, 3, 0),
 	(21, 5, 1),
 	(22, 2, 1),
 	(22, 5, 1),
+	(22, 6, 1),
 	(23, 2, 0),
 	(23, 3, 0),
 	(23, 5, 0),
+	(23, 6, 0),
 	(24, 2, 1),
 	(24, 5, 0),
+	(24, 6, 1),
 	(25, 2, 0),
 	(25, 3, 0),
+	(25, 6, 0),
 	(26, 3, 1),
 	(26, 5, 1),
 	(27, 5, 0),
+	(27, 6, 0),
 	(28, 2, 1),
+	(29, 6, 1),
 	(30, 3, 1),
-	(30, 5, 1);
+	(30, 5, 1),
+	(30, 6, 1);
 /*!40000 ALTER TABLE `question_attempt` ENABLE KEYS */;
 
 
@@ -325,7 +369,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   PRIMARY KEY (`role_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table question.role: ~2 rows (approximately)
+-- Dumping data for table question.role: ~0 rows (approximately)
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
 INSERT INTO `role` (`role_id`, `name`) VALUES
 	(1, 'admin'),
@@ -344,15 +388,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `email` (`email`),
   KEY `FK_user_role` (`privilages`),
   CONSTRAINT `FK_user_role` FOREIGN KEY (`privilages`) REFERENCES `role` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Dumping data for table question.user: ~4 rows (approximately)
+-- Dumping data for table question.user: ~0 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `email`, `name`, `password`, `privilages`) VALUES
 	(1, 'khsushan@gmail.com', 'ushan', '$1$AS0.Jv0.$IQQnJ2o7FN28o.VboV6fW1', 1),
-	(5, 'test@gmail.com', 'test', '$1$N/..SE5.$/4H7YcWFTb5lwKR8zbcLV0', 2),
 	(6, 'ushan@gmail.com', 'khsushan', '$1$Bl0.0A..$72HXR1rG3iN6a9iq2Z6DU0', 2),
-	(7, 'ershadisayri@gmail.com', 'ershadi', '$1$os2.RF3.$DZal6dQOwz4qguqLw.WBP1', 2);
+	(8, 'user1@gmail.com', 'user1', '$1$Jg5.es5.$1PqGE4RiFWIXJclY/XaAU1', 2),
+	(9, 'user2@gmail.com', 'user2', '$1$je0.wu0.$9MSipAWjBtLwIbd4KEfq2/', 2),
+	(10, 'user3@gmail.com', 'user3', '$1$3t3.Oa3.$lb0wQEBqeB3JfO3utZgvH0', 2),
+	(11, 'user4@gmail.com', 'user4', '$1$992.ce5.$yZPmM8CqfakyhEOSlQ66S0', 2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
