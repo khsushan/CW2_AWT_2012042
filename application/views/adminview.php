@@ -78,7 +78,7 @@
                             <a class="btn" href="#/admin/question/add">Add new Question</a>
                         </li>
                         <li>
-                            <a class="btn" href="#category">Logout</a>
+                            <a class="btn" href="#user/logout">Logout</a>
                         </li>
                     </ul>
                 </script>
