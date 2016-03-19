@@ -8,7 +8,8 @@ var Router = Backbone.Router.extend({
         "admin/question/add": "addquestion",
         "admin/category/view": "viewcategory",
         "user/question/view/:cateroryid": "viewquestion",
-        "user/question/edit": "editquestion"
+        "user/question/edit": "editquestion",
+        "user/logout" : "logout"
     }
 });
 var router = new Router;
@@ -50,4 +51,17 @@ router.on('route:addquestion', function () {
     $("#main").empty();
     $("#main").append(addQuestionView.render().el);
 });
+
+router.on('route:logout', function () {
+    $.post("http://localhost/CW2_AWT_2012042/user/logout",{},
+        function (data) {
+            if(data == 'error') {
+                alert("please log in first!");
+            }else {
+                window.location.href = "http://localhost/CW2_AWT_2012042/";
+            }
+        });
+});
+
+
 Backbone.history.start();
