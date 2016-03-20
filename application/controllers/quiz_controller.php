@@ -218,6 +218,16 @@ class Quiz_Controller extends CI_Controller
         }
     }
 
+    public function getUserStatistic(){
+        $user_details =   $this->session->userdata("user");
+        $this->load->model('Attemp_Model');
+        $attempModel = new Attemp_Model();
+        $data = array();
+        $data["user_progress"] = $attempModel->getAttempByUserID($user_details[0]["id"]);
+        $data["overrall_progress"] = $attempModel->getAttempByUserID($user_details[0]["id"]);
+        echo json_encode($data);
+    }
+
     /**
      * bulid question according to the given index
      * @param index -  question number
