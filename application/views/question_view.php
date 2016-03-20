@@ -32,8 +32,7 @@ and open the template in the editor.
             <!-- Button for smallest screens -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
                     class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
-            <a class="navbar-brand" href="index.html"><img src="<?php echo base_url(); ?>assets/images/quiz.png"> QUIZ TIME</a>
-
+            <a class="navbar-brand" href=""><img src="<?php echo base_url(); ?>assets/images/quiz.png"> QUIZ TIME</a>
         </div>
     </div>
 </div>
@@ -107,40 +106,31 @@ and open the template in the editor.
     <?php
     } else if (isset($results)) { ?>
         <!--Score View Page -->
-        <form name="userinput" action="<?php echo base_url(); ?>" method="post">
+        <form  onload="drawChart()" name="userinput" action="<?php echo base_url(); ?>" method="post">
 
-            <h1>Hi <?php echo $user ?> ,Your Score is <?php echo $results["score"] ?>%</h1>
-            <h1>Result of previous attempts</h1>
-            <table style="width:100%">
-                <tr>
-                    <th>Attmpt ID</th>
-                    <th>Score</th>
-                    <th>TIme</th>
-                </tr>
+            <h3>Hi <?php echo $user ?> ,Your Score for this attempt is <?php echo $results["score"] ?>%</h3>
                 <?php
-                //$attempts = $results["attemps"];
                 $total_score =0 ;
                 for ($i = 0; $i < count($attempts); $i++) {
 
                 ?>
-                <tr>
-                    <td> <?php echo $attempts[$i]["attempt_id"]; ?> </td>
-                    <td> <?php echo $attempts[$i]["score"]; ?> </td>
-                    <td> <?php echo $attempts[$i]["time"]; ?> </td>
-                </tr>
                 <?php $total_score += $attempts[$i]["score"];
                 } ?>
-            </table>
-            <h1>Your Average is : <?php echo ($total_score/count($attempts)) ?> %</h1>
+            <h3>Your Average is : <?php echo number_format((float)($total_score/count($attempts)), 2, '.', ''); ?> %</h3>
             <p>
                 <button type="submit" class="btn btn-default btn-lg"
                         id="try_again_btn" name="try_again_btn" >
                     Try Again
                 </button>
+                <button type="button" class="btn btn-default btn-lg"
+                        id="view_chart" name="view_chart" onclick="drawChart()" >
+                    View Progress
+                </button>
             </p>
             <!--                <h1 align="Right" id="timeText">Total time for quiz :</h1>-->
 
-            <h1 align="Right" id="timer">00.00</h1>
+            <h3 align="Right" id="timer">00.00</h3>
+            <div id="chart_div"><div>
         </form>
     <?php } ?>
     <!--end of score view-->
@@ -181,9 +171,14 @@ and open the template in the editor.
 
 <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/timehandle.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/progress_chart.js">
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/headroom.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/headroom.min.js"></script>
+
+
 </body>
 </html> 
