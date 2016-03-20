@@ -49,7 +49,8 @@ class Login_Controller extends CI_Controller
         $this->session->unset_userdata("question_count");
         $this->session->unset_userdata("answers");
         $this->session->unset_userdata("user");
-
+        $data = array("success" => true, "message" => "user logout sucessfully");
+        echo json_encode($data);
     }
 
 }
