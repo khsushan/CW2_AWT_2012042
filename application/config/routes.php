@@ -66,6 +66,7 @@ $route['quiz/question/delete/(:num)'] = 'Quiz_Controller/deleteQuestion';
 $route['quiz/answer/create'] = 'Quiz_Controller/addAnswer';
 $route['quiz/answer/update'] = 'Quiz_Controller/updateAnswer';
 $route['quiz/question/answer/get/(:num)'] = 'Quiz_Controller/getAnswersFromID';
+$route['quiz/question/attempt'] = 'Quiz_Controller/getUserStatistic';
 
 //categoty API
 $route['quiz/category/all/get'] = 'Quiz_Controller/getAllCategories';
