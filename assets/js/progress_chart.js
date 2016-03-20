@@ -15,19 +15,22 @@ function drawChart() {
                 data.addColumn('number', 'Score');
                 var graph_data = [];
                 $.each(jsonResponse.user_progress , function (index, value) {
-                    console.log('My array has at position ' + index + ', this value: ' + value["score"]);
-                    graph_data.push([index * 1, value["score"] * 1])
+                    graph_data.push([(index+1) * 1, value["score"] * 1])
                 })
                 ;
                 console.log(graph_data);
                 data.addRows(graph_data)
                 var options = {
-                    chart: {
-                        title: 'Previous attempt score chart',
-                        subtitle: ''
+                    hAxis: {
+                        title: 'Attempt',
+                        min:0
                     },
-                    width: 900,
-                    height: 500
+                    vAxis: {
+                        title: 'Score',
+                        min:0
+                    },
+                    width: 600,
+                    height: 250
                 };
 
                 var chart = new google.charts.Line(document.getElementById('chart_div'));
