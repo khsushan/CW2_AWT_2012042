@@ -241,13 +241,18 @@ var AddQuestionView = Backbone.View.extend({
                             } else {
                                 answerDetails["status"] = 0;
                             }
-                            console.log(answerDetails);
+                            var count = 0;
                             answer.save(answerDetails, {
                                 success: function (responce) {
-                                    if (responce.id) {
+                                    count++;
+                                    if (responce.id && count == 4) {
                                         bootbox.alert("Add Question process finished success", function () {
                                         });
+                                        var addQuestionView = new AddQuestionView({model:new AddQuestion()});
+                                        $("#main").empty();
+                                        $("#main").append(addQuestionView.render().el)
                                     }
+
                                 }
                             });
                         }
