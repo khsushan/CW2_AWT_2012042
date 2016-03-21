@@ -60,7 +60,7 @@ var ViewCategoryView = Backbone.View.extend({
     keypress: function (e) {
         var keyword = $("#keyword").val();
         var index = ("abcdefghijklmnopqrstuvwxyz ").indexOf(String.fromCharCode(e.keyCode).toLowerCase());
-        if (index > -1) {
+        if (index > -1 || e.keyCode == 8) {
             this.renderQuestionView(keyword);
         }
     },
