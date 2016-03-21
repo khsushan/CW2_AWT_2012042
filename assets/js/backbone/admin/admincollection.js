@@ -12,10 +12,15 @@ var Questions = Backbone.Collection.extend({
     searchQuestion:function(keyword,callback){
         var matches = [];
         this.each(function(model) {
-            if( model.attributes.hasOwnProperty("question_value")
-                && model.attributes["question_value"].toLowerCase().indexOf(keyword.toLowerCase()) > -1 ){
+            if(keyword != undefined){
+                if( model.attributes.hasOwnProperty("question_value")
+                    && model.attributes["question_value"].toLowerCase().indexOf(keyword.toLowerCase()) > -1 ){
+                    matches.push(model);
+                }
+            }else{
                 matches.push(model);
             }
+
         });
         callback.call( this, matches );
     }
